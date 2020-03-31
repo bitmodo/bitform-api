@@ -57,7 +57,7 @@
     "author": "Bitmodo",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/bitmodo/node-template/issues"
+        "url": "https://github.com/bitmodo/pib-api/issues"
     },
-    "homepage": "https://github.com/bitmodo/node-template#readme"
+    "homepage": "https://github.com/bitmodo/pib-api#readme"
 }
