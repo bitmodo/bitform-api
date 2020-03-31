@@ -198,124 +198,171 @@ export namespace Routing {
      * A request is message from the user agent which is defining the data that should be gotten.
      *
      * @todo Signed cookies
+     * @todo Add more clear and specific documentation to everything
+     * @todo Stale/fresh properties?
+     * @todo Create parent type for Request & Response?
      */
     export abstract class Request {
         /**
+         * Data submitted in the request body.
+         * This is any data submitted in the request body. By default it is undefined. If there is any data, it will be
+         * parsed and converted into data types that are usable. The default supported types are JSON and urlencoded
+         * data.
          *
+         * @see JSON
          */
-        public abstract get body(): string;
+        public abstract get body(): JSON | string | undefined;
 
         /**
+         * Cookies sent by the request.
+         * These are any of the cookies sent in the request. The cookies are parsed and converted into `Cookie` objects
+         * which can then be used. If there are no cookies, it will default to an empty array.
          *
+         * @see Cookie
          */
         public abstract get cookies(): Cookie[];
 
         /**
-         *
+         * The hostname of the request.
+         * This is the hostname derived by the `Host` HTTP header.
          */
         public abstract get hostname(): string;
 
         /**
-         *
+         * The IP address of the request.
+         * This contains the remote IP address of the request.
          */
         public abstract get ip(): string;
 
         /**
+         * The method of the request.
+         * This corresponds to a `RouteMethod` that is specified by the request.
          *
+         * @see RouteMethod
          */
         public abstract get method(): RouteMethod;
 
         /**
+         * The mapped parameter properties.
+         * These are route parameters that have been mapped to properties. This allows you to get the parameters in a
+         * route path so that you can use them when handling the request.
          *
+         * @see RoutePath
          */
         public abstract get params(): any;
 
         /**
-         *
+         * The path part of the URL.
+         * This will return the path portion of the URL. This will be the actual path that is requested, rather than
+         * the route path.
          */
         public abstract get path(): string;
 
         /**
+         * The request protocol.
+         * This is the protocol that is being used for the request. It is either HTTP or HTTPS.
          *
+         * @see RouteProtocol
          */
-        public abstract get protocol(): string;
+        public abstract get protocol(): RouteProtocol;
 
         /**
-         *
+         * An object containing the query parameters.
+         * This is an object containing the mapped query parameters in the URL. That is everything after the `?` in the
+         * URL will be mapped to an object and returned here.
          */
         public abstract get query(): any;
 
         /**
+         * If a TLS connection is established.
+         * This is a boolean property that is true if a TLS connection is established. It is equivalent to comparing
+         * the protocol to see if it is HTTPS.
          *
+         * @see protocol
          */
         public get secure(): boolean {
-            return this.protocol === 'https';
+            return this.protocol === RouteProtocol.HTTPS;
         }
 
         /**
-         *
+         * Subdomains in the domain.
+         * This is an array of subdomains in the domain name of the request.
          */
         public abstract get subdomains(): string[];
 
         /**
-         *
+         * The full URL of the request.
+         * This is the full URL of the request. It is all of the different components pieced together.
          */
         public abstract get url(): string;
 
         /**
-         *
+         * If the request was from `XMLHttpRequest`.
+         * This is a boolean property indicating if the `X-Requested-With` header field is equal to `XMLHttpRequest`.
+         * This indicates if the request was initiated by a client library such as jQuery.
          */
         public abstract get xhr(): boolean;
 
         /**
+         * Check if the content type is acceptable.
+         * This will check if the specified content type(s) are acceptable based on the request's `Accept` HTTP header.
+         * The method returns the best match, or `false` if none of the content types are acceptable (in which case
+         * the application should respond with 406).
          *
-         * @param types
-         * @returns
+         * @param types The type(s) of content to check
+         * @returns The best content type match or false
          */
-        public abstract accepts(types: string | string[]): boolean;
+        public abstract accepts(types: string | string[]): string | false;
 
         /**
+         * Get the first acceptable charset.
+         * This will go through the list of charsets specified and return the first one that is acceptable. If none
+         * are acceptable, false will be returned.
          *
-         * @param types
-         * @returns
+         * @param charsets The charset(s) to check
+         * @returns The first charset that is acceptable or false
          */
-        public abstract acceptsCharsets(types: string | string[]): boolean;
+        public abstract acceptsCharsets(charsets: string | string[]): string | false;
 
         /**
+         * Get the first acceptable encoding.
+         * This will go through the list of encodings specified and return the first one that is acceptable. If none
+         * are acceptable, false will be returned.
          *
-         * @param types
-         * @returns
+         * @param encodings The encoding(s) to check
+         * @returns The first encoding that is acceptable or false
          */
-        public abstract acceptsEncodings(types: string | string[]): boolean;
+        public abstract acceptsEncodings(encodings: string | string[]): string | false;
 
         /**
+         * Get the first acceptable language.
+         * This will go through the list of encodings specified and return the first one that is acceptable. If none
+         * are acceptable, false will be returned.
          *
-         * @param types
-         * @returns
+         * @param langs The language(s) to check
+         * @returns The first language that is acceptable or false
          */
-        public abstract acceptsLanguages(types: string | string[]): boolean;
+        public abstract acceptsLanguages(langs: string | string[]): string | false;
 
         /**
+         * Get an HTTP header.
+         * This will get the specified HTTP request header field and return it. If the field is not found, undefined is
+         * returned.
          *
-         * @param field
-         * @returns
+         * @param field The field to get
+         * @returns The value of the field or undefined
          */
         public abstract get(field: string): string | undefined;
 
         /**
+         * Check if the content type matches.
+         * This will return the matching content type if the request's `Content-Type` HTTP header matches the MIME type
+         * specified. If the request has no body, `null` is returned. Otherwise, `false` is returned.
          *
-         * @param type
-         * @returns
+         * @param type The content type to check
+         * @returns The matching content type, false, or null
          */
-        public abstract is(type: string): string | boolean;
-
-        /**
-         *
-         * @param name
-         * @param defaultValue
-         * @returns
-         */
-        public abstract param(name: string, defaultValue?: string): string;
+        public abstract is(type: string): string | false | null;
     }
 
     /**
@@ -323,6 +370,7 @@ export namespace Routing {
      * A response is the server's message to the user agent which contains the data for the given request.
      *
      * @todo Give example of how to chain methods
+     * @todo Create HTTP status code enum?
      */
     export abstract class Response {
         /**
@@ -573,5 +621,16 @@ export namespace Routing {
         Allow,
         Deny,
         Ignore
+    }
+
+    /**
+     * The route protocol.
+     * This is the protocol that is being used for a request.
+     *
+     * @todo Add more documentation
+     */
+    export enum RouteProtocol {
+        HTTP,
+        HTTPS
     }
 }
