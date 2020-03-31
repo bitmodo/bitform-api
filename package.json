@@ -46,7 +46,7 @@
     "bundledDependencies": [],
     "optionalDependencies": {},
     "engines": {
-        "node": "^13.11.0"
+        "node": "^10.19.0"
     },
     "keywords": [],
     "repository": {
