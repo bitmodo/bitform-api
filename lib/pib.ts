@@ -1,7 +1,3 @@
-export * from './provider';
-export * from './module';
-export * from './storage';
-
 import { Provider } from './provider';
 import { Module }  from './module';
 import { Storage }  from './storage';
