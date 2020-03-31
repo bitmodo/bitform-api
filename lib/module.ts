@@ -39,7 +39,6 @@ export abstract class Module {
  * The module namespace.
  * This namespace provides all of the things that are useful for modules. That includes things such as configurations,
  * pages, etc.
- * @namespace
  */
 export namespace Module {
     /**
@@ -68,13 +67,13 @@ export namespace Module {
             readonly #name: string;
             #value?: T | T[];
 
-            private readonly _nullable: boolean;
+            readonly #nullable: boolean;
 
             public constructor(name: string, nullable: boolean, value?: T | T[]) {
                 this.#name  = name;
                 this.#value = value;
 
-                this._nullable = nullable;
+                this.#nullable = nullable;
             }
 
             public get name(): string {
@@ -93,7 +92,7 @@ export namespace Module {
             }
 
             public get nullable(): boolean {
-                return this._nullable;
+                return this.#nullable;
             }
         }
     }

@@ -22,10 +22,6 @@ export const defaultPort = 80;
  *
  * The provider should be able to receive a config. This will tell the provider how to function and expose different
  * things such as the host and port.
- *
- * @abstract
- * @class
- * @see ProviderConfig
  */
 export abstract class Provider implements Routing.Router {
     protected _config: ProviderConfig;
