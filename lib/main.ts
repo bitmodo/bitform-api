@@ -1,10 +1,9 @@
-/* eslint-disable no-unused-vars */
 export * from './provider';
 export * from './module';
 export * from './storage';
 
 import { Provider } from './provider';
-import { Module }   from './module';
+import { Module }  from './module';
 import { Storage }  from './storage';
 
 /**
@@ -39,4 +38,6 @@ export default abstract class Pib {
     }
 
     public abstract use(usable: Module | Provider | Storage.Provider): Pib;
+
+    public abstract run(): void;
 }

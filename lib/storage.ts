@@ -32,23 +32,23 @@ export namespace Storage {
      *
      */
     export abstract class Data implements Storable {
-        private readonly _data: { [name: string]: StorableType };
+        readonly #data: { [name: string]: StorableType };
 
         protected constructor() {
-            this._data = {};
+            this.#data = {};
         }
 
         public get(name: string): StorableType {
-            return this._data[name];
+            return this.#data[name];
         }
 
         public set(name: string, value?: StorableType): void {
             if (!value) {
-                delete this._data[name];
+                delete this.#data[name];
                 return;
             }
 
-            this._data[name] = value;
+            this.#data[name] = value;
         }
 
         public getBool(name: string): boolean {
@@ -64,14 +64,14 @@ export namespace Storage {
         }
 
         deserialize(data: Data): void {
-            for (let key in data._data) {
+            for (let key in data.#data) {
                 this.set(key, data.get(key));
             }
         }
 
         serialize(data: Data): Data {
-            for (let key in this._data) {
-                data.set(key, this._data[key]);
+            for (let key in this.#data) {
+                data.set(key, this.#data[key]);
             }
 
             return data;

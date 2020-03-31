@@ -4,13 +4,32 @@
  */
 export abstract class Module {
     protected _name: string;
+    protected _slug: string;
 
-    protected constructor(name: string) {
+    protected _path?: string;
+
+    protected _pages: Module.Page[];
+
+    protected constructor(name: string, slug?: string, path?: string) {
         this._name = name;
+        this._slug = slug || name;
+        this._path = path;
+
+        this._pages = [];
     }
 
     public get name(): string {
         return this._name;
+    }
+
+    public add(page: Module.Page): void {
+        this._pages = this._pages.concat(page);
+    }
+
+    public abstract load(): void;
+
+    public prepare(): void {
+        this.load();
     }
 }
 
@@ -43,31 +62,31 @@ export namespace Module {
          * from a string to a number to a list.
          */
         export class Node<T> {
-            private readonly _name: string;
-            private _value?: T | T[];
+            readonly #name: string;
+            #value?: T | T[];
 
             private readonly _nullable: boolean;
 
             public constructor(name: string, nullable: boolean, value?: T | T[]) {
-                this._name  = name;
-                this._value = value;
+                this.#name  = name;
+                this.#value = value;
 
                 this._nullable = nullable;
             }
 
             public get name(): string {
-                return this._name;
+                return this.#name;
             }
 
             public get value(): T[] | T | undefined {
-                return this._value;
+                return this.#value;
             }
 
             public set value(value: T | T[] | undefined) {
                 if (!this.nullable && !value)
                     throw new TypeError('The node was marked as nonnull but was passed an undefined value');
 
-                this._value = value;
+                this.#value = value;
             }
 
             public get nullable(): boolean {
