@@ -1,15 +1,12 @@
 {
-    "name": "template",
-    "description": "A template repository for Node.js projects",
+    "name": "@pib/api",
+    "description": "The API behind Pib",
     "version": "1.0.0",
     "private": false,
     "main": "dist/main.js",
     "files": [
         "dist/**/*"
     ],
-    "bin": {
-        "program": "bin/program.js"
-    },
     "directories": {
         "lib": "lib",
         "doc": "doc",
@@ -54,7 +51,7 @@
     "keywords": [],
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/bitmodo/node-template.git"
+        "url": "git+https://github.com/bitmodo/pib-api.git"
     },
     "author": "Bitmodo",
     "license": "MIT",
