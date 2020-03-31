@@ -129,6 +129,28 @@ export namespace Routing {
     }
 
     /**
+     * How to handle dotfiles.
+     *
+     * @todo Add more documentation - I don't actually know why this is used
+     */
+    export enum DotfilesOption {
+        Allow,
+        Deny,
+        Ignore
+    }
+
+    /**
+     * The route protocol.
+     * This is the protocol that is being used for a request.
+     *
+     * @todo Add more documentation
+     */
+    export enum RouteProtocol {
+        HTTP,
+        HTTPS
+    }
+
+    /**
      * A generic router.
      * A router is a class that allows for routes to be registered.
      */
@@ -696,27 +718,5 @@ export namespace Routing {
         acceptRanges?: boolean;
         cacheControl?: boolean;
         immutable?: boolean;
-    }
-
-    /**
-     * How to handle dotfiles.
-     *
-     * @todo Add more documentation - I don't actually know why this is used
-     */
-    export enum DotfilesOption {
-        Allow,
-        Deny,
-        Ignore
-    }
-
-    /**
-     * The route protocol.
-     * This is the protocol that is being used for a request.
-     *
-     * @todo Add more documentation
-     */
-    export enum RouteProtocol {
-        HTTP,
-        HTTPS
     }
 }
