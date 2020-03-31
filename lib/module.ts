@@ -30,6 +30,8 @@ export abstract class Module {
 
     public prepare(): void {
         this.load();
+
+        // TODO: Add pages to provider
     }
 }
 
@@ -37,6 +39,7 @@ export abstract class Module {
  * The module namespace.
  * This namespace provides all of the things that are useful for modules. That includes things such as configurations,
  * pages, etc.
+ * @namespace
  */
 export namespace Module {
     /**

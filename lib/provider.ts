@@ -42,6 +42,8 @@ export abstract class Provider implements Routing.Router {
         return this._config.port || defaultPort;
     }
 
+    public abstract start(): never;
+
     public abstract group(path: Routing.RoutePath, callback: (router: Routing.Router) => void): Routing.Router;
 
     public all(path: Routing.RoutePath, callback: Routing.RouteCallback): Routing.Route {

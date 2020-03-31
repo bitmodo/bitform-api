@@ -15,6 +15,8 @@ export interface Config {
 
 const defaultConfig: Config = {};
 
+type Usable = Module | Provider | Storage.Provider;
+
 /**
  * An instance of Pib.
  * This is the main entry point of Pib. Using this, you can specify different providers, modules, and whatever
@@ -23,7 +25,9 @@ const defaultConfig: Config = {};
 export default abstract class Pib {
     protected _config: Config;
 
+    protected _provider?: Provider = undefined;
     protected _modules: Module[] = [];
+    protected _storages: Storage.Provider[] = [];
 
     protected constructor(config?: Config) {
         this._config = config || defaultConfig;
@@ -37,7 +41,29 @@ export default abstract class Pib {
         return this._modules;
     }
 
-    public abstract use(usable: Module | Provider | Storage.Provider): Pib;
+    public use(usable: Usable): Pib {
+        if (usable instanceof Module) {
+            this._modules = this._modules.concat(usable);
+        } else if (usable instanceof Provider) {
+            this._provider = usable;
+        } else {
+            this._storages = this._storages.concat(usable);
+        }
 
-    public abstract run(): void;
+        return this;
+    }
+
+    public run(): void {
+        if (!this._provider) {
+            throw new Error('No provider was set');
+        }
+
+        this.prepare();
+
+        this._provider.start();
+    }
+
+    protected prepare(): void {
+
+    }
 }
