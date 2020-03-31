@@ -200,98 +200,300 @@ export namespace Routing {
      * @todo Signed cookies
      */
     export abstract class Request {
+        /**
+         *
+         */
         public abstract get body(): string;
 
+        /**
+         *
+         */
         public abstract get cookies(): Cookie[];
 
+        /**
+         *
+         */
         public abstract get hostname(): string;
 
+        /**
+         *
+         */
         public abstract get ip(): string;
 
+        /**
+         *
+         */
         public abstract get method(): RouteMethod;
 
+        /**
+         *
+         */
         public abstract get params(): any;
 
+        /**
+         *
+         */
         public abstract get path(): string;
 
+        /**
+         *
+         */
         public abstract get protocol(): string;
 
+        /**
+         *
+         */
         public abstract get query(): any;
 
+        /**
+         *
+         */
         public get secure(): boolean {
             return this.protocol === 'https';
         }
 
+        /**
+         *
+         */
         public abstract get subdomains(): string[];
 
+        /**
+         *
+         */
         public abstract get url(): string;
 
+        /**
+         *
+         */
         public abstract get xhr(): boolean;
 
+        /**
+         *
+         * @param types
+         * @returns
+         */
         public abstract accepts(types: string | string[]): boolean;
 
+        /**
+         *
+         * @param types
+         * @returns
+         */
         public abstract acceptsCharsets(types: string | string[]): boolean;
 
+        /**
+         *
+         * @param types
+         * @returns
+         */
         public abstract acceptsEncodings(types: string | string[]): boolean;
 
+        /**
+         *
+         * @param types
+         * @returns
+         */
         public abstract acceptsLanguages(types: string | string[]): boolean;
 
+        /**
+         *
+         * @param field
+         * @returns
+         */
         public abstract get(field: string): string | undefined;
 
+        /**
+         *
+         * @param type
+         * @returns
+         */
         public abstract is(type: string): string | boolean;
 
+        /**
+         *
+         * @param name
+         * @param defaultValue
+         * @returns
+         */
         public abstract param(name: string, defaultValue?: string): string;
     }
 
     /**
      * A generic response.
      * A response is the server's message to the user agent which contains the data for the given request.
+     *
+     * @todo Give example of how to chain methods
      */
     export abstract class Response {
+        /**
+         *
+         * @param field
+         * @param value
+         * @returns
+         */
         public abstract append(field: string, value?: string | string[]): Response;
 
+        /**
+         *
+         * @param filename
+         * @returns
+         */
         public abstract attachment(filename?: string): Response;
 
+        /**
+         *
+         * @param cookie
+         * @returns
+         */
         public abstract cookie(cookie: Cookie): Response;
 
+        /**
+         *
+         * @param name
+         * @param value
+         * @param options
+         * @returns
+         */
         public abstract cookie(name: string, value: string, options: CookieOptions): Response;
 
+        /**
+         *
+         * @param name
+         * @param options
+         * @returns
+         */
         public abstract clearCookie(name: string, options: CookieOptions): Response;
 
+        /**
+         *
+         * @param path
+         * @param filename
+         * @returns
+         */
         public abstract download(path: string, filename?: string): Response;
 
+        /**
+         *
+         * @todo Can data be more types?
+         * @param data
+         * @param encoding
+         * @returns
+         */
         public abstract end(data?: string | Buffer, encoding?: string): Response;
 
+        /**
+         *
+         * @param object
+         * @returns
+         */
         public abstract format(object: { [key: string]: () => Response | void }): Response;
 
+        /**
+         *
+         * @param field
+         * @returns
+         */
         public abstract get(field: string): string;
 
+        /**
+         *
+         * @param body
+         * @returns
+         */
         public abstract json(body?: JSON): Response;
 
+        /**
+         *
+         * @param body
+         * @returns
+         */
         public abstract jsonp(body?: JSON): Response;
 
+        /**
+         *
+         * @param links
+         * @returns
+         */
         public abstract links(links: { [key: string]: string }): Response;
 
+        /**
+         *
+         * @param path
+         * @returns
+         */
         public abstract location(path: string): Response;
 
+        /**
+         *
+         * @param status
+         * @param path
+         * @returns
+         */
         public abstract redirect(status: number, path: string): Response;
 
+        /**
+         *
+         * @param path
+         * @returns
+         */
         public abstract redirect(path: string): Response;
 
+        /**
+         *
+         * @param body
+         * @returns
+         */
         public abstract send(body?: string | Buffer | JSON): Response;
 
+        /**
+         *
+         * @param path
+         * @param options
+         * @returns
+         */
         public abstract sendFile(path: string, options: FileOptions): Response;
 
+        /**
+         *
+         * @param statusCode
+         * @returns
+         */
         public abstract sendStatus(statusCode: number): Response;
 
+        /**
+         *
+         * @param field
+         * @param value
+         * @returns
+         */
         public abstract set(field: string, value?: string): Response;
 
+        /**
+         *
+         * @param fields
+         * @returns
+         */
         public abstract set(fields: { [key: string]: string }): Response;
 
+        /**
+         *
+         * @param code
+         * @returns
+         */
         public abstract status(code: number): Response;
 
+        /**
+         *
+         * @param type
+         * @returns
+         */
         public abstract type(type: string): Response;
 
+        /**
+         *
+         * @param field
+         * @returns
+         */
         public abstract vary(field: string): Response;
     }
 
