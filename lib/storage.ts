@@ -12,6 +12,8 @@ export namespace Storage {
         protected constructor() {
 
         }
+
+        public abstract setup(): void;
     }
 
     /**

@@ -60,6 +60,20 @@ export default abstract class Pib {
     }
 
     protected prepare(): void {
+        if (!this._provider) {
+            throw new Error('No provider was set');
+        }
 
+        for (let storage of this._storages) {
+            storage.setup();
+        }
+
+        for (let module of this._modules) {
+            module.load();
+        }
+
+        for (let module of this._modules) {
+            module.prepare(this._provider);
+        }
     }
 }

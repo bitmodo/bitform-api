@@ -1,3 +1,5 @@
+import { Provider } from './provider';
+
 /**
  * A Pib module.
  * This is an abstract module that can be used with Pib. Modules can provide extra pages, configuration options, etc.
@@ -28,10 +30,10 @@ export abstract class Module {
 
     public abstract load(): void;
 
-    public prepare(): void {
-        this.load();
-
-        // TODO: Add pages to provider
+    public prepare(provider: Provider): void {
+        for (let page of this._pages) {
+            page.load(provider);
+        }
     }
 }
 
@@ -107,6 +109,8 @@ export namespace Module {
         protected constructor() {
 
         }
+
+        public abstract load(provider: Provider): void;
     }
 
     /**
