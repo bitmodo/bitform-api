@@ -1,5 +1,5 @@
 import { Provider } from './provider';
-import { Module }  from './module';
+import { Module }   from './module';
 import { Storage }  from './storage';
 
 /**
@@ -21,8 +21,8 @@ type Usable = Module | Provider | Storage.Provider;
 export default abstract class Pib {
     protected _config: Config;
 
-    protected _provider?: Provider = undefined;
-    protected _modules: Module[] = [];
+    protected _provider?: Provider          = undefined;
+    protected _modules: Module[]            = [];
     protected _storages: Storage.Provider[] = [];
 
     protected constructor(config?: Config) {

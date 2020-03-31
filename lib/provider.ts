@@ -116,16 +116,16 @@ export namespace Routing {
      * @todo Write documentation on how all of the different methods work
      */
     export enum RouteMethod {
-        get = 'get',
-        post = 'post',
-        put = 'put',
-        delete = 'delete',
+        get     = 'get',
+        post    = 'post',
+        put     = 'put',
+        delete  = 'delete',
 
-        head = 'head',
+        head    = 'head',
         connect = 'connect',
         options = 'options',
-        trace = 'trace',
-        patch = 'patch',
+        trace   = 'trace',
+        patch   = 'patch',
     }
 
     /**
@@ -193,12 +193,12 @@ export namespace Routing {
         protected _callbacks: RouteCallbacks;
 
         protected constructor(path: RoutePath, callbacks: RouteCallbacks) {
-            this._path = path;
+            this._path      = path;
             this._callbacks = callbacks;
         }
 
         public get methods(): RouteMethod[] {
-             return util.reverseMap(RouteMethod, util.keys(this._callbacks)) as RouteMethod[];
+            return util.reverseMap(RouteMethod, util.keys(this._callbacks)) as RouteMethod[];
         }
 
         public get path(): RoutePath {
