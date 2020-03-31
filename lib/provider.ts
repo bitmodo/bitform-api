@@ -1,3 +1,5 @@
+import util = require('./util');
+
 /**
  * The configuration for a provider.
  */
@@ -43,45 +45,45 @@ export abstract class Provider implements Routing.Router {
     public abstract group(path: Routing.RoutePath, callback: (router: Routing.Router) => void): Routing.Router;
 
     public all(path: Routing.RoutePath, callback: Routing.RouteCallback): Routing.Route {
-        return this.route([Routing.RouteMethod.Get, Routing.RouteMethod.Post, Routing.RouteMethod.Put, Routing.RouteMethod.Delete], path, callback);
+        return this.route([Routing.RouteMethod.get, Routing.RouteMethod.post, Routing.RouteMethod.put, Routing.RouteMethod.delete], path, callback);
     }
 
     public abstract route(method: Routing.RouteMethod | Routing.RouteMethod[], path: Routing.RoutePath, callback: Routing.RouteCallback): Routing.Route;
 
     public get(path: Routing.RoutePath, callback: Routing.RouteCallback): Routing.Route {
-        return this.route(Routing.RouteMethod.Get, path, callback);
+        return this.route(Routing.RouteMethod.get, path, callback);
     }
 
     public post(path: Routing.RoutePath, callback: Routing.RouteCallback): Routing.Route {
-        return this.route(Routing.RouteMethod.Post, path, callback);
+        return this.route(Routing.RouteMethod.post, path, callback);
     }
 
     public connect(path: Routing.RoutePath, callback: Routing.RouteCallback): Routing.Route {
-        return this.route(Routing.RouteMethod.Connect, path, callback);
+        return this.route(Routing.RouteMethod.connect, path, callback);
     }
 
     public delete(path: Routing.RoutePath, callback: Routing.RouteCallback): Routing.Route {
-        return this.route(Routing.RouteMethod.Delete, path, callback);
+        return this.route(Routing.RouteMethod.delete, path, callback);
     }
 
     public head(path: Routing.RoutePath, callback: Routing.RouteCallback): Routing.Route {
-        return this.route(Routing.RouteMethod.Head, path, callback);
+        return this.route(Routing.RouteMethod.head, path, callback);
     }
 
     public options(path: Routing.RoutePath, callback: Routing.RouteCallback): Routing.Route {
-        return this.route(Routing.RouteMethod.Options, path, callback);
+        return this.route(Routing.RouteMethod.options, path, callback);
     }
 
     public patch(path: Routing.RoutePath, callback: Routing.RouteCallback): Routing.Route {
-        return this.route(Routing.RouteMethod.Patch, path, callback);
+        return this.route(Routing.RouteMethod.patch, path, callback);
     }
 
     public put(path: Routing.RoutePath, callback: Routing.RouteCallback): Routing.Route {
-        return this.route(Routing.RouteMethod.Put, path, callback);
+        return this.route(Routing.RouteMethod.put, path, callback);
     }
 
     public trace(path: Routing.RoutePath, callback: Routing.RouteCallback): Routing.Route {
-        return this.route(Routing.RouteMethod.Trace, path, callback);
+        return this.route(Routing.RouteMethod.trace, path, callback);
     }
 }
 
@@ -114,16 +116,16 @@ export namespace Routing {
      * @todo Write documentation on how all of the different methods work
      */
     export enum RouteMethod {
-        Get,
-        Post,
-        Put,
-        Delete,
+        get = 'get',
+        post = 'post',
+        put = 'put',
+        delete = 'delete',
 
-        Head,
-        Connect,
-        Options,
-        Trace,
-        Patch,
+        head = 'head',
+        connect = 'connect',
+        options = 'options',
+        trace = 'trace',
+        patch = 'patch',
     }
 
     /**
@@ -168,27 +170,31 @@ export namespace Routing {
 
         protected _callbacks: RouteCallbacks;
 
-        // protected constructor(method: RouteMethod, path: RoutePath, callback: RouteCallback) {
-        //     this._path      = path;
-        //     // this._callbacks = { method: callback };
-        // }
-
         protected constructor(path: RoutePath, callbacks: RouteCallbacks) {
             this._path = path;
             this._callbacks = callbacks;
         }
 
-        // public get methods(): RouteMethod[] {
-        //      return this._callbacks;
-        // }
+        public get methods(): RouteMethod[] {
+             return util.reverseMap(RouteMethod, util.keys(this._callbacks)) as RouteMethod[];
+        }
 
         public get path(): RoutePath {
             return this._path;
         }
 
-        // public call(req: Request, res: Response): string | Response | void {
-        //     return this._callback(req, res);
-        // }
+        public handle(method: RouteMethod, callback: RouteCallback): void {
+            this._callbacks[method] = callback;
+        }
+
+        public call(method: RouteMethod, req: Request, res: Response): string | Response | void {
+            let callback = this._callbacks[method];
+            if (!callback) {
+                return;
+            }
+
+            return callback(req, res);
+        }
     }
 
     /**
