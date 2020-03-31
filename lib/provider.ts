@@ -206,8 +206,8 @@ export namespace Routing {
         /**
          * Data submitted in the request body.
          * This is any data submitted in the request body. By default it is undefined. If there is any data, it will be
-         * parsed and converted into data types that are usable. The default supported types are JSON and urlencoded
-         * data.
+         * parsed and converted into data types that are usable. The default supported types are {@link JSON} and
+         * urlencoded data.
          *
          * @see JSON
          */
@@ -215,8 +215,8 @@ export namespace Routing {
 
         /**
          * Cookies sent by the request.
-         * These are any of the cookies sent in the request. The cookies are parsed and converted into `Cookie` objects
-         * which can then be used. If there are no cookies, it will default to an empty array.
+         * These are any of the cookies sent in the request. The cookies are parsed and converted into {@link Cookie}
+         * objects which can then be used. If there are no cookies, it will default to an empty array.
          *
          * @see Cookie
          */
@@ -236,7 +236,7 @@ export namespace Routing {
 
         /**
          * The method of the request.
-         * This corresponds to a `RouteMethod` that is specified by the request.
+         * This corresponds to a {@link RouteMethod} that is specified by the request.
          *
          * @see RouteMethod
          */
@@ -310,8 +310,8 @@ export namespace Routing {
          * the application should respond with 406).
          *
          * @todo create content type enum?
-         * @param types The type(s) of content to check
-         * @returns The best content type match or false
+         * @param {(string|string[])} types - The type(s) of content to check
+         * @returns {(string|false)} The best content type match or false
          */
         public abstract accepts(types: string | string[]): string | false;
 
@@ -321,8 +321,8 @@ export namespace Routing {
          * are acceptable, false will be returned.
          *
          * @todo Create charsets enum?
-         * @param charsets The charset(s) to check
-         * @returns The first charset that is acceptable or false
+         * @param {(string|string[])} charsets - The charset(s) to check
+         * @returns {(string|false)} The first charset that is acceptable or false
          */
         public abstract acceptsCharsets(charsets: string | string[]): string | false;
 
@@ -332,8 +332,8 @@ export namespace Routing {
          * are acceptable, false will be returned.
          *
          * @todo Create encodings enum?
-         * @param encodings The encoding(s) to check
-         * @returns The first encoding that is acceptable or false
+         * @param {(string|string[])} encodings - The encoding(s) to check
+         * @returns {(string|false)} The first encoding that is acceptable or false
          */
         public abstract acceptsEncodings(encodings: string | string[]): string | false;
 
@@ -343,8 +343,8 @@ export namespace Routing {
          * are acceptable, false will be returned.
          *
          * @todo Create languages enum?
-         * @param langs The language(s) to check
-         * @returns The first language that is acceptable or false
+         * @param {(string|string[])} langs - The language(s) to check
+         * @returns {(string|false)} The first language that is acceptable or false
          */
         public abstract acceptsLanguages(langs: string | string[]): string | false;
 
@@ -353,8 +353,8 @@ export namespace Routing {
          * This will get the specified HTTP request header field and return it. If the field is not found, undefined is
          * returned.
          *
-         * @param field The field to get
-         * @returns The value of the field or undefined
+         * @param {string} field - The field to get
+         * @returns {(string|undefined)} The value of the field or undefined
          */
         public abstract get(field: string): string | undefined;
 
@@ -363,8 +363,8 @@ export namespace Routing {
          * This will return the matching content type if the request's `Content-Type` HTTP header matches the MIME type
          * specified. If the request has no body, `null` is returned. Otherwise, `false` is returned.
          *
-         * @param type The content type to check
-         * @returns The matching content type, false, or null
+         * @param {string} type - The content type to check
+         * @returns {(string|false|null)} The matching content type, false, or null
          */
         public abstract is(type: string): string | false | null;
     }
@@ -383,9 +383,9 @@ export namespace Routing {
          * This will take the specified value(s) and append them to the specified HTTP header. If the header does not
          * already exist, it will be created first.
          *
-         * @param field The field to append to
-         * @param value The value(s) to append
-         * @returns The current response for chaining
+         * @param {string} field - The field to append to
+         * @param {(string|string[])} value - The value(s) to append
+         * @returns {Response} The current response for chaining
          */
         public abstract append(field: string, value: string | string[]): Response;
 
@@ -395,8 +395,8 @@ export namespace Routing {
          * it were an attachment. If a filename is given, the `Content-Type` header will be set based on the extension,
          * and the `Content-Disposition` will be set to include the filename.
          *
-         * @param filename The optional filename to use
-         * @returns The current response for chaining
+         * @param {string} [filename] - The optional filename to use
+         * @returns {Response} The current response for chaining
          */
         public abstract attachment(filename?: string): Response;
 
@@ -406,8 +406,8 @@ export namespace Routing {
          * cookie, and options will also be based on that object.
          *
          * @see Cookie
-         * @param cookie The cookie to create
-         * @returns The current response for chaining
+         * @param {Cookie} cookie - The cookie to create
+         * @returns {Response} The current response for chaining
          */
         public abstract cookie(cookie: Cookie): Response;
 
@@ -416,12 +416,12 @@ export namespace Routing {
          * This will add a cookie to the response. This method is a convenience method for the other cookie method.
          *
          * @see cookie
-         * @param name The name of the cookie
-         * @param value The cookie's value
-         * @param options Additional options for the cookie
-         * @returns The current response for chaining
+         * @param {string} name - The name of the cookie
+         * @param {string} value - The cookie's value
+         * @param {CookieOptions} [options] - Additional options for the cookie
+         * @returns {Response} The current response for chaining
          */
-        public abstract cookie(name: string, value: string, options: CookieOptions): Response;
+        public abstract cookie(name: string, value: string, options?: CookieOptions): Response;
 
         /**
          * Clear a cookie.
@@ -429,11 +429,11 @@ export namespace Routing {
          * Note that web browsers and other compliant clients will only clear the cookie if the given options match those
          * used to create the cookie.
          *
-         * @param name The name of the cookie to clear
-         * @param options The options that the cookie was made using
-         * @returns The current response for chaining
+         * @param {string} name - The name of the cookie to clear
+         * @param {CookieOptions} [options] - The options that the cookie was made using
+         * @returns {Response} The current response for chaining
          */
-        public abstract clearCookie(name: string, options: CookieOptions): Response;
+        public abstract clearCookie(name: string, options?: CookieOptions): Response;
 
         /**
          * Transfer a file as an attachment.
@@ -441,24 +441,24 @@ export namespace Routing {
          * prompt the user for download. By default, the filename will be equal to the path. Once the operation has been
          * completed, the callback function will be called with either the error or null.
          *
-         * @param path The path of the file to download
-         * @param filename The name of the file
-         * @param callback A callback for when the download is finished
-         * @returns The current response for chaining
+         * @param {string} path - The path of the file to download
+         * @param {string} [filename] - The name of the file
+         * @param {(error?: Error | null) => void} [callback] - A callback for when the download is finished
+         * @returns {Response} The current response for chaining
          */
         public abstract download(path: string, filename?: string, callback?: (error?: Error | null) => void): Response;
 
         /**
          * End the response process.
          * This will cause the response to end and be sent. This can be used to quickly end the response without any
-         * data. However, if data needs to be included, use methods such as `send` and `json`.
+         * data. However, if data needs to be included, use methods such as {@link send} and {@link json}.
          *
          * @todo Can data be more types?
          * @see send
          * @see json
-         * @param data Optional data to write before ending
-         * @param encoding The encoding of the data
-         * @returns The current response for chaining
+         * @param {(string|Buffer)} [data] - Optional data to write before ending
+         * @param {string} [encoding] - The encoding of the data
+         * @returns {Response} The current response for chaining
          */
         public abstract end(data?: string | Buffer, encoding?: string): Response;
 
@@ -468,8 +468,8 @@ export namespace Routing {
          * HTTP header. Depending on the acceptable content types, one of the provided closures will be selected and
          * run.
          *
-         * @param object The content type callbacks
-         * @returns The current response for chaining
+         * @param {*} object - The content type callbacks
+         * @returns {Response} The current response for chaining
          */
         public abstract format(object: { [key: string]: () => Response | string | void }): Response;
 
@@ -478,8 +478,8 @@ export namespace Routing {
          * This will get the specified HTTP response header field and return it. If the field is not found, undefined is
          * returned.
          *
-         * @param field The field to get
-         * @returns The value of the field or undefined
+         * @param {string} field - The field to get
+         * @returns {(string|undefined)} The value of the field or undefined
          */
         public abstract get(field: string): string | undefined;
 
@@ -489,18 +489,19 @@ export namespace Routing {
          * the response.
          *
          * @see JSON
-         * @param body The JSON body to send
-         * @returns The current response for chaining
+         * @param {JSON} [body] - The JSON body to send
+         * @returns {Response} The current response for chaining
          */
         public abstract json(body?: JSON): Response;
 
         /**
          * Send a JSON response with JSONP support.
          * This will send the JSON object specified as the response body with JSONP support. This method is identical
-         * to `json`, except that it opts-in to JSONP callback support.
+         * to {@link json}, except that it opts-in to JSONP callback support.
          *
-         * @param body The JSON body to send
-         * @returns The current response for chaining
+         * @see json
+         * @param {JSON} [body] - The JSON body to send
+         * @returns {Response} The current response for chaining
          */
         public abstract jsonp(body?: JSON): Response;
 
@@ -508,8 +509,8 @@ export namespace Routing {
          * Set the `Link` HTTP header.
          * This will take the provided links and join them to populate the response's `Link` HTTP header.
          *
-         * @param links The links to use
-         * @returns The current response for chaining
+         * @param {*} links - The links to use
+         * @returns {Response} The current response for chaining
          */
         public abstract links(links: { [key: string]: string }): Response;
 
@@ -518,8 +519,8 @@ export namespace Routing {
          * This will set the `Location` HTTP header to the specified path. If set to `back`, it will refer to the URL
          * specified in the `Referer` header, or `/` if that header is not specified.
          *
-         * @param path The path to set the location
-         * @returns The current response for chaining
+         * @param {string} path - The path to set the location
+         * @returns {Response} The current response for chaining
          */
         public abstract location(path: string): Response;
 
@@ -527,20 +528,20 @@ export namespace Routing {
          * Redirect to the specified path with the specified status code.
          * This will redirect the response to the specified path.
          *
-         * @param status The status code to use
-         * @param path The path to redirect to
-         * @returns The current response for chaining
+         * @param {number} status - The status code to use
+         * @param {string} path - The path to redirect to
+         * @returns {Response} The current response for chaining
          */
         public abstract redirect(status: number, path: string): Response;
 
         /**
          * Redirect to the specified path.
-         * This will redirect to the specified path with a status code of 302. This is essentially a call to the `redirect`
-         * method with a default status number.
+         * This will redirect to the specified path with a status code of 302. This is essentially a call to the
+         * {@link redirect} method with a default status number.
          *
          * @see redirect
-         * @param path The path to redirect to.
-         * @returns The current response for chaining
+         * @param {string} path - The path to redirect to.
+         * @returns {Response} The current response for chaining
          */
         public abstract redirect(path: string): Response;
 
@@ -551,8 +552,8 @@ export namespace Routing {
          *
          * @todo Set `Content-Length`
          * @todo Provide automatic HEAD and HTTP cache freshness
-         * @param body The optional body to send
-         * @returns The current response for chaining
+         * @param {(string|Buffer|JSON)} [body] - The optional body to send
+         * @returns {Response} The current response for chaining
          */
         public abstract send(body?: string | Buffer | JSON): Response;
 
@@ -561,9 +562,9 @@ export namespace Routing {
          * This will take the file at the given path and transfer it in the response. The `Content-Type` will automatically
          * be set depending on the path extension.
          *
-         * @param path The path to the file to send
-         * @param options The optional options to use for sending the file
-         * @returns The current response for chaining
+         * @param {string} path - The path to the file to send
+         * @param {FileOptions} [options] - The optional options to use for sending the file
+         * @returns {Response} The current response for chaining
          */
         public abstract sendFile(path: string, options?: FileOptions): Response;
 
@@ -572,8 +573,8 @@ export namespace Routing {
          * This will set the status code to whatever is specified then send a string representation of the status
          * code as the response body.
          *
-         * @param statusCode The status code to send
-         * @returns The current response for chaining
+         * @param {number} statusCode - The status code to send
+         * @returns {Response} The current response for chaining
          */
         public abstract sendStatus(statusCode: number): Response;
 
@@ -581,9 +582,9 @@ export namespace Routing {
          * Set an HTTP header.
          * This will set the specified field to the specified value.
          *
-         * @param field The name of the field to set
-         * @param value The value to set the field to
-         * @returns The current response for chaining
+         * @param {string} field - The name of the field to set
+         * @param {string} value - The value to set the field to
+         * @returns {Response} The current response for chaining
          */
         public abstract set(field: string, value: string): Response;
 
@@ -592,8 +593,8 @@ export namespace Routing {
          * This will take all of the fields specified in the object and convert them to headers. The keys will be the
          * header names and values will be the header values.
          *
-         * @param fields The fields to set
-         * @returns The current response for chaining
+         * @param {*} fields - The fields to set
+         * @returns {Response} The current response for chaining
          */
         public abstract set(fields: { [key: string]: string }): Response;
 
@@ -601,8 +602,8 @@ export namespace Routing {
          * Set the status code.
          * This will set the status code of the response.
          *
-         * @param code The status code to set
-         * @returns The current response for chaining
+         * @param {number} code - The status code to set
+         * @returns {Response} The current response for chaining
          */
         public abstract status(code: number): Response;
 
@@ -611,8 +612,8 @@ export namespace Routing {
          * This will set the content type of the response.
          *
          * @todo Create content type enum
-         * @param type The content type
-         * @returns The current response for chaining
+         * @param {string} type - The content type
+         * @returns {Response} The current response for chaining
          */
         public abstract type(type: string): Response;
 
@@ -620,8 +621,8 @@ export namespace Routing {
          * Add the `Vary` header.
          * This will add the `Vary` HTTP header if it is not already present.
          *
-         * @param field The field to vary
-         * @returns The current response for chaining
+         * @param {string} field - The field to vary
+         * @returns {Response} The current response for chaining
          */
         public abstract vary(field: string): Response;
     }
