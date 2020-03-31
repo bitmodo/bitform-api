@@ -17,6 +17,8 @@ jobs:
           node-version: ${{ matrix.node }}
       - name: Install Node packages
         run: npm install
+      - name: Build
+        run: gulp
       - name: Lint
         run: gulp lint
       - name: Run tests
