@@ -2,8 +2,8 @@ import { Provider } from './provider';
 import { Page }     from './page';
 
 /**
- * A Pib module.
- * This is an abstract module that can be used with Pib. Modules can provide extra pages, configuration options, etc.
+ * A Bitform module.
+ * This is an abstract module that can be used with Bitform. Modules can provide extra pages, configuration options, etc.
  */
 export abstract class Module {
     protected _name: string;

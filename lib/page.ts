@@ -26,7 +26,7 @@ export abstract class Layout {
 }
 
 /**
- * A Pib component.
+ * A Bitform component.
  * A component is an element on a page. Every page is made up of some number of components. Components could be
  * anything from a text box to a simple container. Components should be made to be as flexible and reusable
  * as possible so that only a few components need to be made.

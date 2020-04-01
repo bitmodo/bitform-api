@@ -18,8 +18,8 @@ export const defaultHost = 'localhost';
 export const defaultPort = 80;
 
 /**
- * A backend provider for Pib.
- * This is an abstract implementation of a Pib provider. The provider should allow Pib to create endpoints on a
+ * A backend provider for Bitform.
+ * This is an abstract implementation of a Bitform provider. The provider should allow Pib to create endpoints on a
  * web server.
  *
  * The provider should be able to receive a config. This will tell the provider how to function and expose different
