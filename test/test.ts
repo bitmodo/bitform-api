@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-// import * as Pib   from '../lib';
+// import * as Bitform   from '../lib';
 
 it('should pass', () => {
     assert(true, 'Should be true');

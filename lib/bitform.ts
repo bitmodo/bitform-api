@@ -3,7 +3,7 @@ import { Module }   from './module';
 import { Storage }  from './storage';
 
 /**
- * The configuration for a Pib instance.
+ * The configuration for a Bitform instance.
  */
 export interface Config {
     provideApis?: boolean;
@@ -14,11 +14,11 @@ const defaultConfig: Config = {};
 type Usable = Module | Provider | Storage.Provider;
 
 /**
- * An instance of Pib.
- * This is the main entry point of Pib. Using this, you can specify different providers, modules, and whatever
+ * An instance of Bitform.
+ * This is the main entry point of Bitform. Using this, you can specify different providers, modules, and whatever
  * else you might want to use.
  */
-export default abstract class Pib {
+export default abstract class Bitform {
     protected _config: Config;
 
     protected _provider?: Provider          = undefined;
@@ -37,7 +37,7 @@ export default abstract class Pib {
         return this._modules;
     }
 
-    public use(usable: Usable): Pib {
+    public use(usable: Usable): Bitform {
         if (usable instanceof Module) {
             this._modules = this._modules.concat(usable);
         } else if (usable instanceof Provider) {

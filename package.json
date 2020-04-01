@@ -1,8 +1,7 @@
 {
-    "name": "@pib/api",
-    "description": "The API behind Pib",
+    "name": "@bitform/api",
+    "description": "The API behind Bitform",
     "version": "0.1.0",
-    "private": false,
     "main": "dist/index.js",
     "files": [
         "dist/**/*"
@@ -52,12 +51,12 @@
     "keywords": [],
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/bitmodo/pib-api.git"
+        "url": "git+https://github.com/bitmodo/bitform-api.git"
     },
     "author": "Bitmodo",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/bitmodo/pib-api/issues"
+        "url": "https://github.com/bitmodo/bitform-api/issues"
     },
-    "homepage": "https://github.com/bitmodo/pib-api#readme"
+    "homepage": "https://github.com/bitmodo/bitform-api#readme"
 }
